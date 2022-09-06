@@ -1,11 +1,13 @@
 import React from 'react';
 import 'normalize.css'
+import BaseForm from './components/baseForm';
+
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <>
+      <BaseForm />
+    </>
   );
 }
 
