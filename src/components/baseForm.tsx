@@ -19,10 +19,12 @@ let AppWrapper = styled.div({
     backgroundColor: "#fff"
 });
 
-const BaseForm = () => {
+const BaseForm = ({children}: any) => {
     return <>
         <Wrapper>
-            <AppWrapper></AppWrapper>
+            <AppWrapper>
+                {children}
+            </AppWrapper>
         </Wrapper>
     </>;
 };
