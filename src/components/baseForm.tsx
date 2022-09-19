@@ -19,11 +19,19 @@ let AppWrapper = styled.div({
     backgroundColor: "#fff"
 });
 
+let AppContainer = styled.div({
+	width: 'calc(100% - 26px)',
+	margin: '0 auto',
+	paddingTop: '63px'
+})
+
 const BaseForm = ({children}: any) => {
     return <>
         <Wrapper>
             <AppWrapper>
-                {children}
+                <AppContainer>
+                    {children}
+                </AppContainer>
             </AppWrapper>
         </Wrapper>
     </>;
