@@ -46,5 +46,9 @@ const Button = ({children, variant, width, handler}: ButtonProps) => {
 		</button>
 	);
 }
+Button.defaultProps = {
+	variant: 'default',
+	width: '100%'
+}
 
 export default Button

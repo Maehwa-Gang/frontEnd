@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 const InputWrappersChild: {[key: string]: {}} = {
-	// InputWrapper의 자식 요소가 2개일때 (input, button)
-	two: {
+	// InputWrapper에 버튼 요소가 들어갈때
+	button: {
 		display: 'flex',
     	justifyContent: 'space-between',
     	alignItems: 'center',
@@ -13,8 +13,6 @@ const InputWrapper = ({children, elements}: {children: any, elements: string}) =
 	return (
 		<div
 			css = {{
-				border: '1px solid #E7E7E7',
-				borderRadius: '4px',
 				fontWeight: '400',
 				fontSize: '14px',
 			    fontFamily: 'Spoqa Han Sans Neo',
@@ -25,25 +23,46 @@ const InputWrapper = ({children, elements}: {children: any, elements: string}) =
 		</div>
 	)
 }
+InputWrapper.defaultProps = {
+	elements: ''
+}
 
 interface TextInputProps {
 	children: any, 
+	name: string,
 	placeHolder: string, 
 	width: string,
-	setInputState(a: string): void 
+	inputs: {},
+	setInputsState({}): void 
 }
-const TextInput = ({children, placeHolder, width, setInputState}: TextInputProps) => {
+const TextInput = ({children, name, placeHolder, width, inputs ,setInputsState}: TextInputProps) => {
 	return (
-			<input placeholder={placeHolder} type='text'
+			<input name={name} placeholder={placeHolder} type='text'
 				css={{
 					width: width,
 					height: '50px',
-					border: '0',
-					padding: '13px'
+					padding: '13px',
+					border: '1px solid #E7E7E7',
+					borderRadius: '4px',
 				}}
-				onChange={(e)=>setInputState(e.target.value)}
+				onChange={ 
+					(e)=>{
+						const {value, name} = e.target;
+						setInputsState({
+							...inputs,
+							[name]: value
+						})
+					}
+				}
 			/>
 	)
+}
+TextInput.defaultProps = {
+	name: '',
+	placeHolder: '',
+	width: '100%',
+	inputs: '',
+	setInputsState: ''
 }
 
 interface PwInputProps extends TextInputProps {
@@ -54,7 +73,7 @@ const showContent: {[key: string]: string[]} = {
 	see: ['text', 'see'],
 	hide: ['password', 'hide']
 }
-const PwInput = ({children, placeHolder, width, show, setInputState, setInputHide}: PwInputProps) => {
+const PwInput = ({children, name, placeHolder, width, show, inputs, setInputsState, setInputHide}: PwInputProps) => {
 	return (
 		<div
 			css={{
@@ -62,23 +81,32 @@ const PwInput = ({children, placeHolder, width, show, setInputState, setInputHid
 				display: 'flex',
 				justifyContent: 'space-between',
 				alignItems: 'center',
-				border: '1px solid #E7E7E7',
-				borderRadius: '4px',
+				position: 'relative'
 			}}
 		>
-			<input placeholder={placeHolder} type={showContent[show][0]}
+			<input name={name} placeholder={placeHolder} type={showContent[show][0]}
 				css={{
 					width: '100%',
 					height: '50px',
-					border: '0',
-					padding: '13px'
+					padding: '13px 30px 13px 13px',
+					border: '1px solid #E7E7E7',
+					borderRadius: '4px',
 				}}
-				onChange={(e)=>setInputState(e.target.value)}
+				onChange={ 
+					(e)=>{
+						const {value, name} = e.target;
+						setInputsState({
+							...inputs,
+							[name]: value
+						})
+					}
+				}
 			/>
 			<img src={`/assets/images/common/icon_${showContent[show][1]}.svg`}
 				css={{
-					paddingRight: '8px',
-					cursor: 'pointer'
+					cursor: 'pointer',
+					position: 'absolute',
+					right: '8px'
 				}}
 				alt='비밀번호 보기'
 				onClick={() => {
@@ -91,6 +119,13 @@ const PwInput = ({children, placeHolder, width, show, setInputState, setInputHid
 			/>
 		</div>
 	)
+}
+PwInput.defaultProps = {
+	name: '',
+	placeHolder: '',
+	width: '100%',
+	inputs: '',
+	setInputsState: ''
 }
 
 export {InputWrapper, TextInput ,PwInput}
