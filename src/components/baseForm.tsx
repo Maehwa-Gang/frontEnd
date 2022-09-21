@@ -16,16 +16,17 @@ let AppWrapper = styled.div({
     maxWidth: "500px",
     minHeight: "100vh",
     height: "100%",
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    position: "relative"
 });
 
 let AppContainer = styled.div({
-	width: 'calc(100% - 26px)',
-	margin: '0 auto',
-	paddingTop: '63px'
+    width: 'calc(100% - 26px)',
+    margin: '0 auto',
+    paddingTop: '63px'
 })
 
-const BaseForm = ({children}: any) => {
+const BaseForm = ({ children }: any) => {
     return <>
         <Wrapper>
             <AppWrapper>

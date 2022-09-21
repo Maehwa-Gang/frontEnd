@@ -1,5 +1,7 @@
 import react from "react"
 import styled from '@emotion/styled'
+import { useNavigate } from 'react-router-dom';
+
 
 const TitleHeader = styled.div({
     width: "100%",
@@ -24,13 +26,16 @@ const HistoryBackImg = styled.img({
 
 interface AppHeaderProps {
     title: String,
-    isBack: boolean
+    isBack: Boolean,
+    fixedLocation?: any,
 }
 
-const AppHeader = ({ title, isBack }: AppHeaderProps) => {
+const AppHeader = ({ title, isBack, fixedLocation = -1 }: AppHeaderProps) => {
+    const navigate = useNavigate();
+
     return (
         <TitleHeader>
-            {isBack && <HistoryBackImg src="/assets/images/common/icon_back.svg" />}
+            {isBack && <HistoryBackImg onClick={() => navigate(fixedLocation)} src="/assets/images/common/icon_back.svg" />}
             <TitleText>{title}</TitleText>
         </TitleHeader>
     )
