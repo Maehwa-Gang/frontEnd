@@ -5,7 +5,14 @@ const checkbox: {[key: number]: string} = {
 	1 : 'act'
 }
 
-const CheckBox = ({children, active, margin}: {children: any, active: number, margin: string}) => {
+interface CheckBoxProps {
+	children: any,
+	active: number,
+	margin: string,
+	fontSize: string
+}
+
+const CheckBox = ({children, active, margin, fontSize}: CheckBoxProps) => {
 
 	return (
 		<>
@@ -15,13 +22,12 @@ const CheckBox = ({children, active, margin}: {children: any, active: number, ma
 					background: `url(/assets/images/common/ck_${checkbox[active]}.svg) no-repeat`,
 					backgroundPosition: 'center',
 					backgroundSize: 'cover',
-					margin: '0',
 					display: 'inline-block',
 					verticalAlign: 'middle',
 					marginRight: margin
 			}}/>
 			<span css={{
-				fontSize: '13px',
+				fontSize: fontSize,
 				fontWeight: '400',
 				fontFamily: 'Spoqa Han Sans Neo',
 				color: '#535353',
@@ -33,7 +39,8 @@ const CheckBox = ({children, active, margin}: {children: any, active: number, ma
 }
 CheckBox.defaultProps = {
 	active: 0,
-	margin: '8px'
+	margin: '8px',
+	fontSize: '13px'
 }
 
 export default CheckBox
