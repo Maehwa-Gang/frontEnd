@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
 import { useState } from "react";
-import { Global } from "@emotion/react"
-import styled from '@emotion/styled'
-import BaseForm from "./../../components/baseForm"
-import global from "../../components/Common/global"
-import Button from "../../components/Common/Button";
-import { InputWrapper, TextInput, PwInput } from "../../components/Common/Input";
-import CheckBox from "../../components/Common/CheckBox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import styled from '@emotion/styled';
+import BaseForm from "../../components/molecules/BaseForm";
+import CheckBoxMolecule from "../../components/molecules/CheckBoxMolecule";
+import Button from "../../components/atoms/Button";
+import { InputWrapper, TextInput, PwInput } from "../../components/atoms/Input";
+import CheckBox from "../../components/atoms/CheckBox";
 
 /* styled-components */
 const LoginBannerLogo = styled.img`
@@ -23,11 +23,11 @@ const LoginInputContainer = styled.div`
   flex-direction: column;
   gap: 11px;
   margin-top: 56px;
-  `
-
-const CheckBoxWrapper = styled.div`
-  margin: 14px 0 36px 0;
 `
+
+// const CheckBoxContainer = styled.div`
+//   margin: 14px 0 36px 0;
+// `
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -110,6 +110,8 @@ const AppleLoginButton = styled(GoogleLoginButton)`
 
 /* React Components */
 const LoginPage = () => {
+  const navigate = useNavigate();
+
 	const [userInputs, setUserInputs] = useState({
     id: '',
     pw: ''
@@ -119,24 +121,43 @@ const LoginPage = () => {
 	const [idSave, setIdSave] = useState(0)
 
   const loginHandler = (): void => {
-    alert(id)
-		alert(pw)
+    axios.post(
+      'https://api.bbig.co.kr/api/login',
+      {
+        id: id,
+        password: pw
+      },
+    )
+    .then(res=>{
+      if (res.data.success === true){
+        alert('로그인 성공')
+      }
+      else {
+        alert('로그인 실패')
+      }
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
+
+  const signUpHandler = (): void => {
+    navigate('/agree')
   }
 	
 	return (
 		<BaseForm>
-			<Global styles={global}/>
       <LoginBannerLogo src="/assets/images/common/main_logo.svg" alt="로고"/>
       <LoginInputContainer>
-        <InputWrapper><TextInput name='id' placeHolder='아이디를 입력하세요.' inputs={userInputs} setInputsState={setUserInputs}>''</TextInput></InputWrapper>
-        <InputWrapper elements='button'><PwInput name='pw' placeHolder='비밀번호를 입력하세요.' inputs={userInputs} show={inputHide} setInputsState={setUserInputs} setInputHide={setInputHide}>''</PwInput></InputWrapper>
+        <InputWrapper><TextInput name='id' placeHolder='아이디를 입력하세요.' inputs={ userInputs } setInputsState={ setUserInputs }>''</TextInput></InputWrapper>
+        <InputWrapper elements='button'><PwInput name='pw' placeHolder='비밀번호를 입력하세요.' inputs={ userInputs } show={ inputHide } setInputsState={setUserInputs} setInputHide={setInputHide}>''</PwInput></InputWrapper>
       </LoginInputContainer>
-      <CheckBoxWrapper>
-        <label onClick={()=>{setIdSave(1-idSave)}}><CheckBox active={idSave}>아이디 저장</CheckBox></label>
-      </CheckBoxWrapper>
+      <CheckBoxMolecule margin="14px 0 36px 0" checkBoxHandler={ () => {setIdSave(1-idSave)} } active={ idSave }>
+        아이디 저장
+      </CheckBoxMolecule>
       <ButtonContainer>
-        <Button width="100%" handler={()=>{loginHandler()}}>로그인</Button>
-        <Button variant='white' width="100%" handler=''>회원가입</Button>
+        <Button width="100%" handler={ () => loginHandler() }>로그인</Button>
+        <Button variant='white' width="100%" handler={ () => signUpHandler() }>회원가입</Button>
       </ButtonContainer>
       <UserFindContainer>
         <UserFind to='#'>아이디 찾기</UserFind>
