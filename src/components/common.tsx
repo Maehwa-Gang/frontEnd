@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import BaseForm from './molecules/BaseForm';
-import Button from "./atoms/Button";
+import { Button, ButtonWrapper } from "./atoms/Button";
 import { InputWrapper, TextInput, PwInput } from "./atoms/Input";
 import CheckBox from './atoms/CheckBox';
 
