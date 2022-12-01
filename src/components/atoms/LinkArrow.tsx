@@ -1,19 +1,23 @@
 /** @jsxImportSource @emotion/react */
 
-const LinkArrow = ({children, handler}: {children: any, handler: any}) => {
+const LinkArrow = ({handler}: {handler: any}) => {
 
     return (
-        <button onClick={ () => handler() }
+        <button onClick={ (e) => handler(e) }
             css = {{
                 display: 'inline',
                 position: 'absolute',
                 right: '3px',
                 border: 'none',
-                backgroundColor: '#fff',
-                cursor: 'pointer'
+                width: '7px',
+                height: '12px',
+                cursor: 'pointer',    
+                background: 'url("/assets/images/common/arrow_button.svg")',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: 'contain'
             }}
         >
-            {children}
         </button>
     )
 }

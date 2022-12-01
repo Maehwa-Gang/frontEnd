@@ -51,4 +51,17 @@ Button.defaultProps = {
 	width: '100%'
 }
 
-export default Button
+const ButtonWrapper = ({children} : {children:any}) => {
+	return (
+		<div css={{
+			width: '100%',
+			position: 'absolute',
+			left: '0',
+			bottom: '24px'
+		}}>
+			{children}
+		</div>
+	)
+}
+
+export { Button, ButtonWrapper }
