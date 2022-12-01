@@ -41,3 +41,6 @@ export const AgreeAllWrapper = styled.div`
     border-bottom: 1px solid #EAEAEA;
 `
 
+export const LinkArrow = styled.div`
+    
+`
