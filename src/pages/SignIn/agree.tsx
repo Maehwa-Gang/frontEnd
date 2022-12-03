@@ -12,20 +12,20 @@ const Agree = () => {
     const [isCheck, setIsCheck] = useState([0, 0])
     const [isCheckAll, setIsCheckAll] = useState(0)
     const checkHandler = (idx: number) => {
-        setIsCheck(isCheck.map((elem, i) => i === idx ? 1-elem : elem))
+        setIsCheck(isCheck.map((item, i) => i === idx ? 1-item : item))
     }
     const checkAllHandler = (): void => {
         if (isCheckAll === 1) {
             setIsCheckAll(0)
-            setIsCheck(isCheck.map(elem => 0))
+            setIsCheck(isCheck.map(item => 0))
         }
         else {
             setIsCheckAll(1)
-            setIsCheck(isCheck.map(elem => 1))
+            setIsCheck(isCheck.map(item => 1))
         }
     }
     useEffect(() => {
-        if (isCheck.filter(elem => elem).length === 2) setIsCheckAll(1)
+        if (isCheck.filter(item => item).length === 2) setIsCheckAll(1)
         else setIsCheckAll(0)
     }, [isCheck])
 
@@ -61,11 +61,10 @@ const Agree = () => {
         navigate('tos');
     }
 
-
     return (
     <>
         <BaseForm>
-            <AppHeader isBack={true} title={"약관동의"} />
+            <AppHeader isBack={true} title={"약관동의"}/>
             <S.TitleTextInfoContainer>
                 <S.LogoTypeNoText src="/assets/images/common/logo_type_no_text.svg" />
                 <S.TitleTextInfo><b>회원가입</b>을 위해<br />아래 <b>약관</b>을 확인해주세요.</S.TitleTextInfo>
@@ -90,6 +89,5 @@ const Agree = () => {
     )
 
 }
-
 
 export default Agree;

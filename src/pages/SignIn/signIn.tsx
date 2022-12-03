@@ -11,7 +11,7 @@ const SignIn = () => {
 
     return (
         <BaseForm>
-            <AppHeader isBack={true} title={"회원가입"} ></AppHeader>
+            <AppHeader isBack={true} title={"회원가입"}></AppHeader>
         </BaseForm>
     )
 }
