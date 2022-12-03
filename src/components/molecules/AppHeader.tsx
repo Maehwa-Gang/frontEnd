@@ -26,15 +26,25 @@ const HistoryBackImg = styled.img`
 interface AppHeaderProps {
     title: String,
     isBack: boolean,
-    fixedLocation?: any
+    fixedLocation?: string
 }
 
-const AppHeader = ({ title, isBack, fixedLocation = -1 }: AppHeaderProps) => {
+const AppHeader = ({ title, isBack, fixedLocation = '-1' }: AppHeaderProps) => {
     const navigate = useNavigate();
+
+    const backButtonHandler = () => {
+        if (fixedLocation === '-1') {
+            navigate(-1)
+        }
+        else {
+            navigate(fixedLocation, {replace : true})
+        }
+    }
+
 
     return (
         <TitleHeader>
-            {isBack && <HistoryBackImg onClick={() => navigate(fixedLocation)} src="/assets/images/common/icon_back.svg" />}
+            {isBack && <HistoryBackImg onClick={() => backButtonHandler()} src="/assets/images/common/icon_back.svg" />}
             <TitleText>{title}</TitleText>
         </TitleHeader>
     )
