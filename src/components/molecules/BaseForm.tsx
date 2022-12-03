@@ -29,7 +29,7 @@ let AppContainer = styled.div`
 	padding-top: 63px;
 `
 
-const BaseForm = ({ children }: any) => {
+const BaseForm = ({ children }: {children: React.ReactNode}) => {
     return <>
         <Wrapper>
             <AppWrapper>

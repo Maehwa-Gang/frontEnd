@@ -9,7 +9,7 @@ const InputWrappersChild: {[key: string]: {}} = {
 		border: '0'
 	}
 }
-const InputWrapper = ({children, elements}: {children: any, elements: string}) => {
+const InputWrapper = ({children, elements}: {children: React.ReactNode, elements: string}) => {
 	return (
 		<div
 			css = {{
@@ -28,7 +28,7 @@ InputWrapper.defaultProps = {
 }
 
 interface TextInputProps {
-	children: any, 
+	children: React.ReactNode, 
 	name: string,
 	placeHolder: string, 
 	width: string,

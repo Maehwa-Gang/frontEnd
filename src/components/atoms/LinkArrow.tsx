@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-const LinkArrow = ({handler}: {handler: any}) => {
+const LinkArrow = ({handler}: {handler: React.MouseEventHandler<HTMLButtonElement>}) => {
 
     return (
         <button onClick={ (e) => handler(e) }
