@@ -19,10 +19,10 @@ const colors: {[key:string]: {}} = {
 	}
 }
 interface ButtonProps {
-	children: any, 
+	children: React.ReactNode, 
 	variant: string, 
 	width: string,
-	handler: any
+	handler: React.MouseEventHandler<HTMLButtonElement>
 }
 const Button = ({children, variant, width, handler}: ButtonProps) => {
 	return (
@@ -51,7 +51,7 @@ Button.defaultProps = {
 	width: '100%'
 }
 
-const ButtonWrapper = ({children} : {children:any}) => {
+const ButtonWrapper = ({children} : {children: React.ReactNode}) => {
 	return (
 		<div css={{
 			width: '100%',

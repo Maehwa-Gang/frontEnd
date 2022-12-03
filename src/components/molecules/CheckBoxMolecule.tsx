@@ -16,22 +16,22 @@ const CheckBoxContainer = styled.div<CheckBoxContainerType>`
 `
 
 interface CheckBoxMoleculeProps {
-    children: any,
+    children: React.ReactNode,
     margin?: string,
-    checkBoxHandler: any,
+    checkBoxHandler: React.MouseEventHandler<HTMLLabelElement>,
     active: number,
     checkBoxMargin?: string,
 }
 
 interface CheckBoxWithArrowButtonMoleculeProps extends CheckBoxMoleculeProps {
-    arrowHandler: any
+    arrowHandler: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const CheckBoxMolecule = ({children, margin, checkBoxHandler, active, checkBoxMargin}: CheckBoxMoleculeProps) => {
 
     return (
         <CheckBoxContainer margin={margin ? margin : '0'}>
-            <label onClick={ () => checkBoxHandler()} style={{display:'block'}}>
+            <label onClick={ (e) => checkBoxHandler(e) } style={{display:'block'}}>
                 <CheckBox active={ active } margin={checkBoxMargin}>{children}</CheckBox>
             </label>
         </CheckBoxContainer>
@@ -42,7 +42,7 @@ const CheckBoxWithArrowButtonMolecule = ({children, margin, checkBoxHandler, act
 
     return (
         <CheckBoxContainer margin={margin ? margin : '0'}>
-            <label onClick={ () => checkBoxHandler()} style={{display:'block'}}>
+            <label onClick={ (e) => checkBoxHandler(e) } style={{display:'block'}}>
                 <CheckBox active={ active } margin={checkBoxMargin}>{children}</CheckBox>
             </label>
             <LinkArrow handler={ arrowHandler }></LinkArrow>

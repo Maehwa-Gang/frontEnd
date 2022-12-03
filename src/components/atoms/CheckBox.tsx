@@ -6,7 +6,7 @@ const checkbox: {[key: number]: string} = {
 }
 
 interface CheckBoxProps {
-	children: any,
+	children: React.ReactNode,
 	active: number,
 	margin: string,
 	fontSize: string
