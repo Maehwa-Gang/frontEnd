@@ -51,7 +51,7 @@ Button.defaultProps = {
 	width: '100%'
 }
 
-const ButtonWrapper = ({children} : {children: React.ReactNode}) => {
+const ButtonWrapper = ({children}: {children: React.ReactNode}) => {
 	return (
 		<div css={{
 			width: '100%',
@@ -64,4 +64,14 @@ const ButtonWrapper = ({children} : {children: React.ReactNode}) => {
 	)
 }
 
-export { Button, ButtonWrapper }
+const PopupButtonWrapper = ({children}: {children: React.ReactNode}) => {
+	return (
+		<div css={{
+			width: '100%'
+		}}>
+			{children}
+		</div>
+	)
+}
+
+export { Button, ButtonWrapper, PopupButtonWrapper }
