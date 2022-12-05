@@ -5,9 +5,14 @@ import AppHeader from "../../components/molecules/AppHeader";
 import BaseForm from "../../components/molecules/BaseForm";
 import { CheckBoxMolecule, CheckBoxWithArrowButtonMolecule } from "../../components/molecules/CheckBoxMolecule";
 import { Button, ButtonWrapper } from "../../components/atoms/Button";
+import { useAppDispatch, useAppSelector } from "../../store/config";
+import { setFlag, setPhrase } from "../../store/slices/popupSlice";
+import Popup from "../../components/molecules/Popup";
 
 const Agree = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const popup = useAppSelector((state) => state.popup)
 
     const [isCheck, setIsCheck] = useState([0, 0])
     const [isCheckAll, setIsCheckAll] = useState(0)
@@ -34,7 +39,7 @@ const Agree = () => {
             navigate('/signIn')
         }
         else {
-            alert('필수 항목에 동의가 필요합니다.')
+            popupHandler('약관 동의', '필수 항목에 동의가 필요합니다.')
         }
     }
 
@@ -61,31 +66,39 @@ const Agree = () => {
         navigate('tos');
     }
 
+    const popupHandler = (title: string, content: string): void => {
+        dispatch(setFlag(1));
+        dispatch(setPhrase({title, content}));
+    }
+
     return (
-    <>
-        <BaseForm>
-            <AppHeader isBack={true} title={"약관동의"}/>
-            <S.TitleTextInfoContainer>
-                <S.LogoTypeNoText src="/assets/images/common/logo_type_no_text.svg" />
-                <S.TitleTextInfo><b>회원가입</b>을 위해<br />아래 <b>약관</b>을 확인해주세요.</S.TitleTextInfo>
-            </S.TitleTextInfoContainer>
-            <S.AgreeCheckContainer>
-                <S.AgreeAllWrapper>
-                    <CheckBoxMolecule checkBoxHandler={ () => checkAllHandler() } active={ isCheckAll } checkBoxMargin="10px">약관 전체동의</CheckBoxMolecule>
-                </S.AgreeAllWrapper>
-                <CheckBoxWithArrowButtonMolecule margin="22px 0 24px 0" checkBoxHandler={ () => checkHandler(0) } active={ isCheck[0] } checkBoxMargin="10px" arrowHandler={ () => policyButtonHandler(1)}>
-                    이용약관 동의 (필수)
-                </CheckBoxWithArrowButtonMolecule>
-                <CheckBoxWithArrowButtonMolecule checkBoxHandler={ () => checkHandler(1) } active={ isCheck[1] } checkBoxMargin="10px" arrowHandler={ () => policyButtonHandler(2)}>
-                    개인정보 수집 및 이용동의 (필수)
-                </CheckBoxWithArrowButtonMolecule>
-            </S.AgreeCheckContainer>
-            <ButtonWrapper>
-                <Button width="100%" handler={ () => nextBtnHandler() }>다음</Button>
-            </ButtonWrapper>
-        </BaseForm>
-        <Outlet context={{ title, content }}></Outlet>
-    </>
+        <>
+            <BaseForm>
+                <AppHeader isBack={true} title={"약관동의"}/>
+                <S.TitleTextInfoContainer>
+                    <S.LogoTypeNoText src="/assets/images/common/logo_type_no_text.svg" />
+                    <S.TitleTextInfo><b>회원가입</b>을 위해<br />아래 <b>약관</b>을 확인해주세요.</S.TitleTextInfo>
+                </S.TitleTextInfoContainer>
+                <S.AgreeCheckContainer>
+                    <S.AgreeAllWrapper>
+                        <CheckBoxMolecule checkBoxHandler={ () => checkAllHandler() } active={ isCheckAll } checkBoxMargin="10px">약관 전체동의</CheckBoxMolecule>
+                    </S.AgreeAllWrapper>
+                    <CheckBoxWithArrowButtonMolecule margin="22px 0 24px 0" checkBoxHandler={ () => checkHandler(0) } active={ isCheck[0] } checkBoxMargin="10px" arrowHandler={ () => policyButtonHandler(1)}>
+                        이용약관 동의 (필수)
+                    </CheckBoxWithArrowButtonMolecule>
+                    <CheckBoxWithArrowButtonMolecule checkBoxHandler={ () => checkHandler(1) } active={ isCheck[1] } checkBoxMargin="10px" arrowHandler={ () => policyButtonHandler(2)}>
+                        개인정보 수집 및 이용동의 (필수)
+                    </CheckBoxWithArrowButtonMolecule>
+                </S.AgreeCheckContainer>
+                <ButtonWrapper>
+                    <Button width="100%" handler={ () => nextBtnHandler() }>다음</Button>
+                </ButtonWrapper>
+                {
+                    popup.flag ? <Popup/> : ''
+                }
+            </BaseForm>
+            <Outlet context={{ title, content }}></Outlet>
+        </>
     )
 
 }
