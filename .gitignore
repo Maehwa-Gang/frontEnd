@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 /기술회고
+
+.env
