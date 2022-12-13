@@ -11,6 +11,7 @@ import { InputWrapper, TextInput, PwInput } from "../../components/atoms/Input";
 import Popup from "../../components/molecules/Popup";
 import { useAppDispatch, useAppSelector } from '../../store/config'
 import { setFlag, setPhrase } from '../../store/slices/popupSlice'
+import { loginUser } from "../../api/user/user";
 
 /* React Components */
 const LoginPage = () => {
@@ -25,15 +26,11 @@ const LoginPage = () => {
     const { id, pw } = userInputs;
     const [inputHide, setInputHide] = useState('hide')
     const [idSave, setIdSave] = useState(0)
+    
 
     const loginApi = () => {
-        axios.post(
-            'https://api.bbig.co.kr/api/login',
-            {
-                id: id,
-                password: pw
-            },
-        )
+        const userData = {id: id, password: pw}
+        loginUser(userData)
         .then(res=>{
             if (res.data.success === true){
                 alert('로그인 성공')
